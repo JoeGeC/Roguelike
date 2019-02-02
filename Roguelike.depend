@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1549132502 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/main.cpp
+	<ncurses/curses.h>
+	"World.h"
+
+1548058636 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ncurses/curses.h
+	<ncurses/ncurses_dll.h>
+	<stdint.h>
+	<stdio.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdbool.h>
+	<libutf8.h>
+	<wchar.h>
+	<ncurses/unctrl.h>
+
+1548058636 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ncurses/ncurses_dll.h
+
+1548058636 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ncurses/unctrl.h
+	<ncurses/curses.h>
+
+1549132631 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/World.h
+	<ncurses/curses.h>
+	"Player.h"
+	"Map.h"
+	"Vector2.h"
+	"Enemy.h"
+
+1549134687 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Player.h
+	"Vector2.h"
+	"Entity.h"
+
+1543502914 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Vector2.h
+	<ostream>
+
+1549135378 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Entity.h
+	"Vector2.h"
+
+1549133312 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Map.h
+	"Vector2.h"
+
+1549134614 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Enemy.h
+	"Entity.h"
+
+1549133494 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Enemy.cpp
+	"Enemy.h"
+
+1549133312 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Map.cpp
+	"Map.h"
+
+1549133471 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Entity.cpp
+	<ncurses/curses.h>
+	"Entity.h"
+
+1549133521 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Player.cpp
+	"Player.h"
+
+1345867666 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1345841770 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/wchar.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<wctype.h>
+	<sys/types.h>
+	<stdio.h>
+	<stdint.h>
+	<stdint.h>
+
+1549136265 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/World.cpp
+	"World.h"
+	<iostream>
+
