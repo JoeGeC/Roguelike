@@ -3,17 +3,22 @@
 #include "Map.h"
 #include "Vector2.h"
 #include "Enemy.h"
+#include <vector>
 
 class World
 {
 public:
     World();
+    ~World();
     void Run();
 
 private:
-    char input = ' ';
+    void DisplayStats();
+    bool CheckCollision(Entity* p);
 
-    Player m_player;
-    Enemy m_enemy;
+    std::vector<Entity*> m_entityVector;
     Map m_map;
+
+    bool m_gameOver { false };
+    char input { ' ' };
 };

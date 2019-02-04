@@ -6,6 +6,11 @@ Entity::Entity(Vector2 pos) : m_pos(pos)
     //ctor
 }
 
+Entity::~Entity()
+{
+
+}
+
 void Entity::Move(char input, char symbol)
 {
     mvaddch(m_pos.x, m_pos.y, '.');
