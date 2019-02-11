@@ -21,6 +21,8 @@ void World::Run()
 {
     while ((input = getch()) != 'q')
     {
+        clear();
+
         //print map
         for (int x = 0; x < m_map.GetMapSize().x; x++)
         {
@@ -31,13 +33,20 @@ void World::Run()
             }
         }
 
+        DisplayStats();
+
+
         //Updates all entities
         for(auto p : m_entityVector)
         {
-            if (!CheckCollision(p))
+            if(!CheckCollision(p))
+            {
                 p->Update(input);
+            }
 
-            if (p->GetType() == EType::ePlayer && p->GetAlive() == false)
+            p->CheckAlive();
+
+            if (p->GetType() == EType::ePlayer && p->CheckAlive() == false)
             {
                 m_gameOver = true;
             }
@@ -54,11 +63,11 @@ void World::Run()
         }
     }
 
-    while ((input = getch()) != 'q')
+    do
     {
         std::string gameOverString = "GAME OVER!";
         mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
-    }
+    } while ((input = getch()) != 'q');
 }
 
 bool World::CheckCollision(Entity* p)
@@ -80,7 +89,7 @@ bool World::CheckCollision(Entity* p)
 
 void World::DisplayStats()
 {
-    move(m_map.GetMapSize().x + 1, 0);
+    move(m_map.GetMapSize().x, 0);
     clrtoeol();
 
     for (auto p : m_entityVector)
@@ -92,5 +101,4 @@ void World::DisplayStats()
             mvprintw(m_map.GetMapSize().x, 1, "%s", playerHealthString.c_str());
         }
     }
-
 }

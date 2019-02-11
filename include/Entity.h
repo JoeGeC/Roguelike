@@ -18,6 +18,8 @@ public:
     virtual void Attack(Entity* target, Vector2 mapSize) = 0;
     virtual EType GetType() const = 0;
     void Move(char input, char symbol);
+    void DisplayEntity(char symbol);
+    bool CheckAlive();
 
     Vector2 GetPos(){ return m_pos; }
     int GetHealth(){ return m_health; }

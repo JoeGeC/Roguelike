@@ -33,7 +33,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="/usr/local/SFML-2.2/include" />
 		</Compiler>
+		<Linker>
+			<Add library="sfml-network" />
+			<Add library="sfml-system" />
+			<Add directory="/usr/local/SFML-2.2/lib" />
+		</Linker>
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Entity.h" />
 		<Unit filename="include/Map.h" />

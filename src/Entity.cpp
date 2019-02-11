@@ -64,6 +64,23 @@ void Entity::Move(char input, char symbol)
         break;
     }
 
-    mvaddch(m_pos.x, m_pos.y, symbol);
+    DisplayEntity(symbol);
 
+}
+
+void Entity::DisplayEntity(char symbol)
+{
+    mvaddch(m_pos.x, m_pos.y, symbol);
+}
+
+bool Entity::CheckAlive()
+{
+    if (m_health <= 0)
+    {
+        m_health = 0;
+        m_alive = false;
+        return false;
+    }
+    else
+        return true;
 }

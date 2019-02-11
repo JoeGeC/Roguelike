@@ -17,6 +17,8 @@ void Enemy::Attack(Entity* target, Vector2 mapSize)
     int damage = -1;
     target->SetHealth(damage);
 
+    DisplayEntity('E');
+
     std::string enemyAttackString = "Enemy dealt " + std::to_string(damage) + " damage!";
     mvprintw(1, mapSize.y + 1, "%s", enemyAttackString.c_str());
 }
