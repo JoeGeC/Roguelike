@@ -6,7 +6,7 @@
 int main(void)
 {
     // Screen initialisation
-    /*initscr();
+    initscr();
     cbreak();
     curs_set(0);
     noecho();
@@ -14,9 +14,9 @@ int main(void)
     clear();
 
     World world;
-    world.Run();*/
+    world.Run();
 
-    sf::UdpSocket socket;
+    /*sf::UdpSocket socket;
     if(socket.bind(4300) != sf::Socket::Done)
     {
         std::cout << "Socket not bound" << std::endl;
@@ -44,9 +44,9 @@ int main(void)
         case 'a': // "aes"
         // ... look at other parts of the message
         break;
-    }
+    }*/
 
     // Finishing the session with ncurses.
-    //endwin();
+    endwin();
     return(0);
 }

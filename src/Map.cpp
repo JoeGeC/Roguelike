@@ -21,3 +21,13 @@ Map::Map()
     }
 }
 
+Entity* Map::GetEntityAtLoc(Vector2 pos, std::vector<Entity*> entityVector)
+{
+    for(auto p : entityVector)
+    {
+        if(p->GetPos() == pos)
+        {
+            return p;
+        }
+    }
+}

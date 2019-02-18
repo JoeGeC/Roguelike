@@ -15,7 +15,7 @@ public:
 
 	float x{ 0 };
 	float y{ 0 };
-	
+
 	void operator+=(const Vector2& rhs)
 	{
 		x += rhs.x;
@@ -32,12 +32,13 @@ public:
 	friend Vector2 operator-(Vector2 lhs, const Vector2& rhs);
 	friend Vector2 operator*(Vector2 lhs, float rhs);
 	friend Vector2 operator/(Vector2 lhs, float rhs);
+	friend bool operator==(Vector2 lhs, Vector2 rhs);
 	friend ostream& operator<<(ostream& os, const Vector2& rhs);
 
 protected:
 
 private:
-	
+
 };
 
 inline Vector2 operator+(Vector2 lhs, const Vector2& rhs)
@@ -66,6 +67,14 @@ inline Vector2 operator/(Vector2 lhs, float rhs)
 	lhs.x /= rhs;
 	lhs.y /= rhs;
 	return lhs;
+}
+
+inline bool operator==(Vector2 lhs, Vector2 rhs)
+{
+    if (lhs.x == rhs.x && lhs.y == rhs.y)
+        return true;
+    else
+        return false;
 }
 
 inline ostream& operator<<(ostream& os, const Vector2& rhs)

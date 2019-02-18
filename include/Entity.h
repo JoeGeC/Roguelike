@@ -2,12 +2,16 @@
 #define ENTITY_H
 
 #include "Vector2.h"
+#include "Map.h"
+#include <vector>
 
 enum class EType
 {
     ePlayer,
     eEnemy
 };
+
+class Map;
 
 class Entity
 {
@@ -20,6 +24,7 @@ public:
     void Move(char input, char symbol);
     void DisplayEntity(char symbol);
     bool CheckAlive();
+    void Die();
 
     Vector2 GetPos(){ return m_pos; }
     int GetHealth(){ return m_health; }

@@ -3,6 +3,7 @@
 
 #include "Vector2.h"
 #include "Entity.h"
+#include "Map.h"
 
 class Player : public Entity
 {

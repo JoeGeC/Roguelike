@@ -79,8 +79,14 @@ bool Entity::CheckAlive()
     {
         m_health = 0;
         m_alive = false;
+        Die();
         return false;
     }
     else
         return true;
+}
+
+void Entity::Die()
+{
+
 }

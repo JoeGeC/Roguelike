@@ -35,16 +35,17 @@ void World::Run()
 
         DisplayStats();
 
-
         //Updates all entities
         for(auto p : m_entityVector)
         {
-            if(!CheckCollision(p))
+            if(p->GetAlive())
             {
                 p->Update(input);
-            }
 
-            p->CheckAlive();
+                CheckCollision(p);
+
+                p->CheckAlive();
+            }
 
             if (p->GetType() == EType::ePlayer && p->CheckAlive() == false)
             {
@@ -74,16 +75,16 @@ bool World::CheckCollision(Entity* p)
 {
     for (auto i : m_entityVector)
     {
-        if ((p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y)
+        if (i->GetAlive() &&
+        ((p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y)
         || (p->GetPos().x == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
         || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
-        || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y))
+        || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)))
         {
             p->Attack(i, m_map.GetMapSize());
             return true;
         }
     }
-
     return false;
 }
 
