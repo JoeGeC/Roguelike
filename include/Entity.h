@@ -3,7 +3,7 @@
 
 #include "Vector2.h"
 #include "Map.h"
-#include <vector>
+#include <deque>
 
 enum class EType
 {
@@ -16,15 +16,16 @@ class Map;
 class Entity
 {
 public:
-    Entity(Vector2 pos);
+    Entity(Vector2 pos, std::string name);
     virtual ~Entity();
     virtual void Update(char input) = 0;
-    virtual void Attack(Entity* target, Vector2 mapSize) = 0;
+    virtual std::deque<string> Attack(Entity* target, Vector2 mapSize) = 0;
     virtual EType GetType() const = 0;
+    virtual std::deque<string> GainExperience(int exp) = 0;
     void Move(char input, char symbol);
     void DisplayEntity(char symbol);
     bool CheckAlive();
-    void Die();
+    std::deque<string> Die(Entity* killer);
 
     Vector2 GetPos(){ return m_pos; }
     int GetHealth(){ return m_health; }
@@ -34,8 +35,10 @@ public:
 
 protected:
     Vector2 m_pos;
-    int m_health { 10 };
+    int m_health { 2 };
     bool m_alive { true };
+    int m_defeatExp { 10 };
+    string m_name;
 };
 
 #endif // ENTITY_H

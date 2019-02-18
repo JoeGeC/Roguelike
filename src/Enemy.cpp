@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include <ncurses/curses.h>
 
-Enemy::Enemy(Vector2 pos) : Entity(pos)
+Enemy::Enemy(Vector2 pos, std::string name) : Entity(pos, name)
 {
     //ctor
 }
@@ -12,11 +12,19 @@ void Enemy::Update(char input)
     Move(randDir, 'E');
 }
 
-void Enemy::Attack(Entity* target, Vector2 mapSize)
+std::deque<string> Enemy::Attack(Entity* target, Vector2 mapSize)
 {
+    std::deque<string> notifications;
+
     int damage = -1;
     target->SetHealth(damage);
 
     std::string enemyAttackString = "Enemy dealt " + std::to_string(damage) + " damage!";
-    mvprintw(1, mapSize.y + 1, "%s", enemyAttackString.c_str());
+    notifications.push_front(enemyAttackString);
+    return notifications;
+}
+
+std::deque<string> Enemy::GainExperience(int exp)
+{
+
 }

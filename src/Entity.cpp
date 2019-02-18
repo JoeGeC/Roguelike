@@ -1,7 +1,7 @@
 #include <ncurses/curses.h>
 #include "Entity.h"
 
-Entity::Entity(Vector2 pos) : m_pos(pos)
+Entity::Entity(Vector2 pos, std::string name) : m_pos(pos), m_name(name)
 {
     //ctor
 }
@@ -79,14 +79,26 @@ bool Entity::CheckAlive()
     {
         m_health = 0;
         m_alive = false;
-        Die();
         return false;
     }
     else
         return true;
 }
 
-void Entity::Die()
+std::deque<string> Entity::Die(Entity* killer)
 {
+    std::deque<string> notifications;
 
+    m_alive = false;
+
+    std::deque<string> expStrings = killer->GainExperience(m_defeatExp);
+    for (auto s : expStrings)
+    {
+        notifications.push_front(s);
+    }
+
+    string deathString = m_name + " has died!";
+    notifications.push_front(deathString);
+
+    return notifications;
 }

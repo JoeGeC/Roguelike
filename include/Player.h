@@ -5,16 +5,22 @@
 #include "Entity.h"
 #include "Map.h"
 
+#include <deque>
+
 class Player : public Entity
 {
 public:
-    Player(Vector2 pos);
+    Player(Vector2 pos, std::string name);
     void Update(char input) override final;
     EType GetType() const override final { return EType::ePlayer; };
+    std::deque<string> Attack(Entity* target, Vector2 mapSize) override final;
+    std::deque<string> GainExperience(int exp);
+    void LevelUp();
     void DisplayStats();
-    void Attack(Entity* target, Vector2 mapSize) override final;
 
 private:
+    int m_level { 1 };
+    int m_experience { 0 };
 
 };
 

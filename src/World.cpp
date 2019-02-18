@@ -1,13 +1,13 @@
 #include "World.h"
-
+#include <SFML/Network.hpp>
 #include <iostream>
 
 World::World()
 {
-    Player *player = new Player(Vector2(20, 50));
+    Player *player = new Player(Vector2(20, 50), "Joe");
     m_entityVector.push_back(player);
 
-    Enemy *enemy = new Enemy(Vector2(20, 40));
+    Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
     m_entityVector.push_back(enemy);
 }
 
@@ -19,6 +19,12 @@ World::~World()
 
 void World::Run()
 {
+    sf::UdpSocket socket;
+    if(socket.bind(4300) != sf::Socket::Done)
+    {
+        std::cout << "Socket not bound" << std::endl;
+    }
+
     while ((input = getch()) != 'q')
     {
         clear();
@@ -47,7 +53,7 @@ void World::Run()
                 p->CheckAlive();
             }
 
-            if (p->GetType() == EType::ePlayer && p->CheckAlive() == false)
+            if (p->GetType() == EType::ePlayer && !p->GetAlive())
             {
                 m_gameOver = true;
             }
@@ -62,6 +68,8 @@ void World::Run()
         {
             break;
         }
+
+        PrintNotifications();
     }
 
     do
@@ -81,7 +89,11 @@ bool World::CheckCollision(Entity* p)
         || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
         || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)))
         {
-            p->Attack(i, m_map.GetMapSize());
+            std::deque<string> notifications = p->Attack(i, m_map.GetMapSize());
+            for(auto s : notifications)
+            {
+                PushNotification(s);
+            }
             return true;
         }
     }
@@ -101,5 +113,22 @@ void World::DisplayStats()
             std::string playerHealthString = "Health: " + std::to_string(p->GetHealth());
             mvprintw(m_map.GetMapSize().x, 1, "%s", playerHealthString.c_str());
         }
+    }
+}
+
+void World::PrintNotifications()
+{
+    for(int i = 0; i < m_notifications.size(); i++)
+    {
+        mvprintw(i * 2 + 1, m_map.GetMapSize().y + 1, "%s", m_notifications.at(i).c_str());
+    }
+}
+
+void World::PushNotification(string notification)
+{
+    m_notifications.push_front(notification);
+    while (m_notifications.size() > 20)
+    {
+        m_notifications.pop_back();
     }
 }

@@ -1,5 +1,4 @@
 #include <ncurses/curses.h>
-#include <SFML/Network.hpp>
 #include <iostream>
 #include "World.h"
 
