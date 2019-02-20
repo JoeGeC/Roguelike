@@ -7,11 +7,6 @@ Player::Player(Vector2 pos, std::string name) : Entity(pos, name)
     //ctor
 }
 
-void Player::Update(char input)
-{
-    Move(input, '@');
-}
-
 std::deque<string> Player::Attack(Entity* target, Vector2 mapSize)
 {
     std::deque<string> notifications;
@@ -19,8 +14,8 @@ std::deque<string> Player::Attack(Entity* target, Vector2 mapSize)
     int damage = -1;
     target->SetHealth(damage);
 
-    std::string enemyHealthString = "Enemy health: " + std::to_string(target->GetHealth());
-    mvprintw(mapSize.x + 2, 1, "%s", enemyHealthString.c_str());
+    /*std::string enemyHealthString = target->GetName() + " health: " + std::to_string(target->GetHealth());
+    mvprintw(mapSize.x + 2, 1, "%s", enemyHealthString.c_str());*/
 
     std::string playerAttackString = m_name + " dealt " + std::to_string(damage) + " damage!";
     notifications.push_front(playerAttackString);

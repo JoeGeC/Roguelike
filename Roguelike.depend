@@ -20,7 +20,7 @@
 1548058636 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ncurses/unctrl.h
 	<ncurses/curses.h>
 
-1550660818 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/World.h
+1550696393 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/World.h
 	<ncurses/curses.h>
 	"Player.h"
 	"Map.h"
@@ -30,7 +30,7 @@
 	<deque>
 	<SFML/Network.hpp>
 
-1550659081 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Player.h
+1550696409 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Player.h
 	"Vector2.h"
 	"Entity.h"
 	"Map.h"
@@ -39,21 +39,22 @@
 1550505543 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Vector2.h
 	<ostream>
 
-1550659071 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Entity.h
+1550696409 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Entity.h
 	"Vector2.h"
 	"Map.h"
 	<deque>
+	<SFML/Network.hpp>
 
 1550506549 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Map.h
 	"Entity.h"
 	"Vector2.h"
 	<vector>
 
-1550517970 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Enemy.h
+1550696394 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Enemy.h
 	"Entity.h"
 	<deque>
 
-1550661851 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Enemy.cpp
+1550696394 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Enemy.cpp
 	"Enemy.h"
 	<ncurses/curses.h>
 

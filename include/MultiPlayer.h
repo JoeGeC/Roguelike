@@ -7,8 +7,8 @@
 class MultiPlayer : public Player
 {
     public:
-        MultiPlayer();
-        virtual ~MultiPlayer();
+        MultiPlayer(Vector2 pos, std::string name);
+        std::deque<string> Update(char input, sf::UdpSocket socket) override final;
 
     protected:
 

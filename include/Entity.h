@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include "Map.h"
 #include <deque>
+#include <SFML/Network.hpp>
 
 enum class EType
 {
@@ -18,7 +19,7 @@ class Entity
 public:
     Entity(Vector2 pos, std::string name);
     virtual ~Entity();
-    virtual void Update(char input) = 0;
+    virtual std::deque<string> Update(char input, sf::UdpSocket socket) = 0;
     virtual std::deque<string> Attack(Entity* target, Vector2 mapSize) = 0;
     virtual EType GetType() const = 0;
     virtual std::deque<string> GainExperience(int exp) = 0;
@@ -30,6 +31,7 @@ public:
     Vector2 GetPos(){ return m_pos; }
     int GetHealth(){ return m_health; }
     bool GetAlive(){ return m_alive; }
+    string GetName(){ return m_name; }
 
     void SetHealth(int addHealth) { m_health += addHealth; }
 

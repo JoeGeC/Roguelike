@@ -6,10 +6,14 @@ Enemy::Enemy(Vector2 pos, std::string name) : Entity(pos, name)
     //ctor
 }
 
-void Enemy::Update(char input)
+std::deque<string> Enemy::Update(char input, sf::UdpSocket socket)
 {
+    std::deque<string> notifications;
+
     char randDir = rand() % 9 + 48;
     Move(randDir, 'E');
+
+    return notifications;
 }
 
 std::deque<string> Enemy::Attack(Entity* target, Vector2 mapSize)

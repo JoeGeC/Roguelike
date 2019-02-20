@@ -19,9 +19,11 @@ private:
     bool CheckCollision(Entity* p);
     void PrintNotifications();
     void PushNotification(string notification);
+    void PushNotifications(std::deque<string> notifications);
 
     std::deque<string> m_notifications;
     std::vector<Entity*> m_entityVector;
+    Player *m_player;
     Map m_map;
 
     bool m_gameOver { false };

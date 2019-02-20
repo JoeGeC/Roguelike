@@ -42,14 +42,18 @@
 		</Linker>
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Entity.h" />
+		<Unit filename="include/LocalPlayer.h" />
 		<Unit filename="include/Map.h" />
+		<Unit filename="include/MultiPlayer.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/Vector2.h" />
 		<Unit filename="include/World.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/Entity.cpp" />
+		<Unit filename="src/LocalPlayer.cpp" />
 		<Unit filename="src/Map.cpp" />
+		<Unit filename="src/MultiPlayer.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/World.cpp" />
 		<Extensions>

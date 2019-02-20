@@ -3,8 +3,8 @@
 
 World::World()
 {
-    Player *player = new Player(Vector2(20, 50), "Joe");
-    m_entityVector.push_back(player);
+    m_player = new Player(Vector2(20, 50), "Joe");
+    m_entityVector.push_back(m_player);
 
     Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
     m_entityVector.push_back(enemy);
@@ -14,7 +14,7 @@ World::World()
 
 World::~World()
 {
-ww    for (auto p : m_entityVector)
+    for (auto p : m_entityVector)
         delete p;
 }
 
@@ -47,7 +47,7 @@ void World::Run()
         {
             if(p->GetAlive())
             {
-                p->Update(input);
+                PushNotifications(p->Update(input, m_socket));
 
                 CheckCollision(p);
 
@@ -92,10 +92,7 @@ bool World::CheckCollision(Entity* p)
         {
             //attack automatically and send required notifications to list
             std::deque<string> notifications = p->Attack(i, m_map.GetMapSize());
-            for(auto s : notifications)
-            {
-                PushNotification(s);
-            }
+            PushNotifications(notifications);
             return true;
         }
     }
@@ -107,15 +104,10 @@ void World::DisplayStats()
     move(m_map.GetMapSize().x, 0);
     clrtoeol();
 
-    for (auto p : m_entityVector)
-    {
-        if (p->GetType() == EType::ePlayer)
-        {
-            //print player health
-            std::string playerHealthString = "Health: " + std::to_string(p->GetHealth());
-            mvprintw(m_map.GetMapSize().x, 1, "%s", playerHealthString.c_str());
-        }
-    }
+    //print player health
+    std::string playerHealthString = "Health: " + std::to_string(m_player->GetHealth());
+    mvprintw(m_map.GetMapSize().x, 1, "%s", playerHealthString.c_str());
+
 }
 
 void World::PrintNotifications()
@@ -129,6 +121,28 @@ void World::PrintNotifications()
 void World::PushNotification(string notification)
 {
     m_notifications.push_front(notification);
+    while (m_notifications.size() > 20)
+    {
+        m_notifications.pop_back();
+    }
+}
+
+void World::PushNotification(string notification)
+{
+    m_notifications.push_front(notification);
+    while (m_notifications.size() > 20)
+    {
+        m_notifications.pop_back();
+    }
+}
+
+void World::PushNotifications(std::deque<string> notifications)
+{
+    for(auto s : notifications)
+    {
+        m_notifications.push_front(s);
+    }
+
     while (m_notifications.size() > 20)
     {
         m_notifications.pop_back();

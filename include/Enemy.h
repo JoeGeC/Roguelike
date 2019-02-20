@@ -8,7 +8,7 @@ class Enemy : public Entity
 {
 public:
     Enemy(Vector2 pos, std::string name);
-    void Update(char input) override final;
+    std::deque<string> Update(char input, sf::UdpSocket socket) override final;
     EType GetType() const override final { return EType::eEnemy; };
     std::deque<string> Attack(Entity* target, Vector2 mapSize) override final;
     std::deque<string> GainExperience(int exp) override final;

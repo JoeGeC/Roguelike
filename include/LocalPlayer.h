@@ -7,8 +7,8 @@
 class LocalPlayer : public Player
 {
     public:
-        LocalPlayer();
-        virtual ~LocalPlayer();
+        LocalPlayer(Vector2 pos, std::string name);
+        std::deque<string> Update(char input, sf::UdpSocket socket) override final;
 
     protected:
 

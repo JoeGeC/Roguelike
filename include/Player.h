@@ -11,8 +11,8 @@ class Player : public Entity
 {
 public:
     Player(Vector2 pos, std::string name);
-    void Update(char input) override final;
-    EType GetType() const override final { return EType::ePlayer; };
+    std::deque<string> Update(char input, sf::UdpSocket socket) = 0;
+    EType GetType() const override final { EType::ePlayer; }
     std::deque<string> Attack(Entity* target, Vector2 mapSize) override final;
     std::deque<string> GainExperience(int exp);
     void LevelUp();
