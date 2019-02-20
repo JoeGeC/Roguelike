@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include <vector>
 #include <deque>
+#include <SFML/Network.hpp>
 
 class World
 {
@@ -25,4 +26,5 @@ private:
 
     bool m_gameOver { false };
     char input { ' ' };
+    sf::UdpSocket m_socket;
 };

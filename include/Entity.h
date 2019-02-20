@@ -35,7 +35,7 @@ public:
 
 protected:
     Vector2 m_pos;
-    int m_health { 2 };
+    int m_health { 100 };
     bool m_alive { true };
     int m_defeatExp { 10 };
     string m_name;

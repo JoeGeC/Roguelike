@@ -22,7 +22,7 @@ int main(void)
     }
 
     char data[1] = {'J'};
-    sf::IpAddress recipient = "152.105.67.105";
+    sf::IpAddress recipient = "152.105.67.142";
     unsigned short remote_port {4300};
     if (socket.send(data, sizeof(data), recipient, remote_port) != sf::Socket::Done)
     {

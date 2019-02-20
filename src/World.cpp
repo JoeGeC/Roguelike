@@ -1,5 +1,4 @@
 #include "World.h"
-#include <SFML/Network.hpp>
 #include <iostream>
 
 World::World()
@@ -9,20 +8,22 @@ World::World()
 
     Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
     m_entityVector.push_back(enemy);
+    Enemy *enemy1 = new Enemy(Vector2(25, 40), "Enemy");
+    m_entityVector.push_back(enemy);
 }
 
 World::~World()
 {
-    for (auto p : m_entityVector)
+ww    for (auto p : m_entityVector)
         delete p;
 }
 
 void World::Run()
 {
-    sf::UdpSocket socket;
-    if(socket.bind(4300) != sf::Socket::Done)
+
+    if(m_socket.bind(4300) != sf::Socket::Done)
     {
-        std::cout << "Socket not bound" << std::endl;
+        PushNotification("Socket not bound.");
     }
 
     while ((input = getch()) != 'q')
@@ -89,6 +90,7 @@ bool World::CheckCollision(Entity* p)
         || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
         || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)))
         {
+            //attack automatically and send required notifications to list
             std::deque<string> notifications = p->Attack(i, m_map.GetMapSize());
             for(auto s : notifications)
             {
@@ -118,7 +120,7 @@ void World::DisplayStats()
 
 void World::PrintNotifications()
 {
-    for(int i = 0; i < m_notifications.size(); i++)
+    for(size_t i = 0; i < m_notifications.size(); i++)
     {
         mvprintw(i * 2 + 1, m_map.GetMapSize().y + 1, "%s", m_notifications.at(i).c_str());
     }

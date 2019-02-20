@@ -22,7 +22,7 @@ std::deque<string> Player::Attack(Entity* target, Vector2 mapSize)
     std::string enemyHealthString = "Enemy health: " + std::to_string(target->GetHealth());
     mvprintw(mapSize.x + 2, 1, "%s", enemyHealthString.c_str());
 
-    std::string playerAttackString = "Player dealt " + std::to_string(damage) + " damage!";
+    std::string playerAttackString = m_name + " dealt " + std::to_string(damage) + " damage!";
     notifications.push_front(playerAttackString);
 
     if (target->GetHealth() <= 0)
