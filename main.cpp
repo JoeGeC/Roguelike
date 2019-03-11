@@ -1,9 +1,17 @@
 #include <ncurses/curses.h>
 #include <iostream>
-#include "World.h"
+#include "Server.h"
+#include "Client.h"
 
 int main(void)
 {
+    char input;
+    while (input != 's' && input != 'c')
+    {
+        std::cout << "(s)erver or (c)lient?" << std::endl;
+        std::cin >> input;
+    }
+
     // Screen initialisation
     initscr();
     cbreak();
@@ -12,8 +20,16 @@ int main(void)
 
     clear();
 
-    World world;
-    world.Run();
+    if(input == 's')
+    {
+        Server server;
+        server.Run();
+    }
+    else
+    {
+        Client client;
+        client.Run();
+    }
 
     /*sf::UdpSocket socket;
     if(socket.bind(4300) != sf::Socket::Done)

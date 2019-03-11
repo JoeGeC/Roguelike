@@ -1,5 +1,8 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #include <ncurses/curses.h>
-#include "Player.h"
+#include "LocalPlayer.h"
 #include "Map.h"
 #include "Vector2.h"
 #include "Enemy.h"
@@ -12,9 +15,9 @@ class World
 public:
     World();
     ~World();
-    void Run();
+    virtual void Run() = 0;
 
-private:
+protected:
     void DisplayStats();
     bool CheckCollision(Entity* p);
     void PrintNotifications();
@@ -23,10 +26,13 @@ private:
 
     std::deque<string> m_notifications;
     std::vector<Entity*> m_entityVector;
-    Player *m_player;
+    LocalPlayer *m_player;
     Map m_map;
 
     bool m_gameOver { false };
     char input { ' ' };
+
     sf::UdpSocket m_socket;
 };
+
+#endif //WORLD_H

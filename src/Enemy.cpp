@@ -6,7 +6,7 @@ Enemy::Enemy(Vector2 pos, std::string name) : Entity(pos, name)
     //ctor
 }
 
-std::deque<string> Enemy::Update(char input, sf::UdpSocket socket)
+std::deque<string> Enemy::Update(char input, sf::UdpSocket &socket)
 {
     std::deque<string> notifications;
 

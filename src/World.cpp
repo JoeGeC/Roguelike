@@ -3,7 +3,7 @@
 
 World::World()
 {
-    m_player = new Player(Vector2(20, 50), "Joe");
+    m_player = new LocalPlayer(Vector2(20, 50), "Joe");
     m_entityVector.push_back(m_player);
 
     Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
@@ -18,67 +18,66 @@ World::~World()
         delete p;
 }
 
-void World::Run()
-{
-
-    if(m_socket.bind(4300) != sf::Socket::Done)
-    {
-        PushNotification("Socket not bound.");
-    }
-
-    while ((input = getch()) != 'q')
-    {
-        clear();
-
-        //print map
-        for (int x = 0; x < m_map.GetMapSize().x; x++)
-        {
-            for (int y = 0; y < m_map.GetMapSize().y; y++)
-            {
-                if(m_map.GetMapLoc(x, y) != ' ')
-                    mvaddch(x, y, m_map.GetMapLoc(x, y));
-            }
-        }
-
-        DisplayStats();
-
-        //Updates all entities
-        for(auto p : m_entityVector)
-        {
-            if(p->GetAlive())
-            {
-                PushNotifications(p->Update(input, m_socket));
-
-                CheckCollision(p);
-
-                p->CheckAlive();
-            }
-
-            if (p->GetType() == EType::ePlayer && !p->GetAlive())
-            {
-                m_gameOver = true;
-            }
-        }
-
-        DisplayStats();
-
-        // Displaying
-        refresh();
-
-        if (m_gameOver == true)
-        {
-            break;
-        }
-
-        PrintNotifications();
-    }
-
-    do
-    {
-        std::string gameOverString = "GAME OVER!";
-        mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
-    } while ((input = getch()) != 'q');
-}
+//void World::Run()
+//{
+//    if(m_socket.bind(4300) != sf::Socket::Done)
+//    {
+//        PushNotification("Socket not bound.");
+//    }
+//
+//    while ((input = getch()) != 'q')
+//    {
+//        clear();
+//
+//        //print map
+//        for (int x = 0; x < m_map.GetMapSize().x; x++)
+//        {
+//            for (int y = 0; y < m_map.GetMapSize().y; y++)
+//            {
+//                if(m_map.GetMapLoc(x, y) != ' ')
+//                    mvaddch(x, y, m_map.GetMapLoc(x, y));
+//            }
+//        }
+//
+//        DisplayStats();
+//
+//        //Updates all entities
+//        for(auto p : m_entityVector)
+//        {
+//            if(p->GetAlive())
+//            {
+//                PushNotifications(p->Update(input, m_socket));
+//
+//                CheckCollision(p);
+//
+//                p->CheckAlive();
+//            }
+//
+//            if (p->GetType() == EType::ePlayer && !p->GetAlive())
+//            {
+//                m_gameOver = true;
+//            }
+//        }
+//
+//        DisplayStats();
+//
+//        // Displaying
+//        refresh();
+//
+//        if (m_gameOver == true)
+//        {
+//            break;
+//        }
+//
+//        PrintNotifications();
+//    }
+//
+//    do
+//    {
+//        std::string gameOverString = "GAME OVER!";
+//        mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
+//    } while ((input = getch()) != 'q');
+//}
 
 bool World::CheckCollision(Entity* p)
 {
@@ -121,15 +120,7 @@ void World::PrintNotifications()
 void World::PushNotification(string notification)
 {
     m_notifications.push_front(notification);
-    while (m_notifications.size() > 20)
-    {
-        m_notifications.pop_back();
-    }
-}
 
-void World::PushNotification(string notification)
-{
-    m_notifications.push_front(notification);
     while (m_notifications.size() > 20)
     {
         m_notifications.pop_back();
