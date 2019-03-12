@@ -15,7 +15,7 @@ class World
 public:
     World();
     ~World();
-    virtual void Run() = 0;
+    void Run();
 
 protected:
     void DisplayStats();
@@ -33,6 +33,8 @@ protected:
     char input { ' ' };
 
     sf::UdpSocket m_socket;
+    sf::IpAddress m_serverIp;
+    unsigned short m_port { 13000 };
 };
 
 #endif //WORLD_H

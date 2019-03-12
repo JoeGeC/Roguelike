@@ -1,14 +1,15 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <World.h>
+#include <iostream>
+#include <SFML/Network.hpp>
 
 
-class Server : public World
+class Server
 {
     public:
         Server();
-        void Run() override final;
+        void Run();
 
     protected:
 

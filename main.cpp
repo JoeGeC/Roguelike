@@ -1,7 +1,7 @@
 #include <ncurses/curses.h>
 #include <iostream>
 #include "Server.h"
-#include "Client.h"
+#include "World.h"
 
 int main(void)
 {
@@ -12,14 +12,6 @@ int main(void)
         std::cin >> input;
     }
 
-    // Screen initialisation
-    initscr();
-    cbreak();
-    curs_set(0);
-    noecho();
-
-    clear();
-
     if(input == 's')
     {
         Server server;
@@ -27,8 +19,8 @@ int main(void)
     }
     else
     {
-        Client client;
-        client.Run();
+        World world;
+        world.Run();
     }
 
     /*sf::UdpSocket socket;
