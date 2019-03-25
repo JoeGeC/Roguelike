@@ -32,7 +32,8 @@ protected:
     bool m_gameOver { false };
     char input { ' ' };
 
-    sf::UdpSocket m_socket;
+    sf::UdpSocket m_udpSocket;
+    sf::TcpSocket m_tcpSocket;
     sf::IpAddress m_serverIp;
     unsigned short m_port { 13000 };
 };

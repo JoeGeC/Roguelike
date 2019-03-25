@@ -23,24 +23,60 @@ void Server::Run()
         std::cout << "Socket bound to " << port << std::endl;
     }
 
-    while (1)
+//    while (1)
+//    {
+//        std::cout << "Waiting to receive data." << std::endl;
+//
+//        std::size_t received;
+//
+//        if (socket.receive(data, 256, received, sender, sender_port) != sf::Socket::Done)
+//        {
+//            std::cout << "Data not received." << std::endl;
+//        }
+//        else
+//        {
+//            std::cout << data << std::endl;
+//        }
+//        // Echo back the data.
+//        if (socket.send(data, 256, sender, sender_port) != sf::Socket::Done)
+//        {
+//            std::cout << "Data not sent." << std::endl;
+//        }
+//    }
+
+    sf::TcpListener listener;
+    unsigned short tcpPort = 1299;
+
+    if(listener.listen(tcpPort) != sf::Socket::Done)
     {
-        std::cout << "Waiting to receive data." << std::endl;
+        std::cout << "Failed to attach to the port." << std::endl;
+    }
 
-        std::size_t received;
+    sf::TcpSocket client;
+    if (listener.accept(client) == sf::Socket::Done)
+    {
+        std::cout << "Client connected." << std::endl;
 
-        if (socket.receive(data, 256, received, sender, sender_port) != sf::Socket::Done)
-        {
-            std::cout << "Data not received." << std::endl;
-        }
-        else
-        {
-            std::cout << data << std::endl;
-        }
-        // Echo back the data.
-        if (socket.send(data, 256, sender, sender_port) != sf::Socket::Done)
-        {
-            std::cout << "Data not sent." << std::endl;
-        }
+    }
+
+    size_t tcpReceived;
+    char buffer[256];
+    if(client.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
+    {
+        std::cout << "TCP data not received." << std::endl;
+    }
+    else
+    {
+        std::cout << "TCP data received: " << buffer << std::endl;
+    }
+
+
+    if(client.send(buffer, sizeof(buffer)) != sf::Socket::Done)
+    {
+        std::cout << "TCP data not sent." << std::endl;
+    }
+    else
+    {
+        std::cout << "TCP data sent." << std::endl;
     }
 }

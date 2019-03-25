@@ -32,7 +32,7 @@ void World::Run()
     m_serverIp = sf::IpAddress::Broadcast;
     char broadcastMsg[] = "Broadcast Message";
 
-    if (m_socket.send(broadcastMsg, 256, m_serverIp, m_port) != sf::Socket::Done)
+    if (m_udpSocket.send(broadcastMsg, 256, m_serverIp, m_port) != sf::Socket::Done)
     {
         PushNotification("Data not sent to server.");
     }
@@ -43,13 +43,43 @@ void World::Run()
 
     size_t received;
 
-    if(m_socket.receive(broadcastMsg, 256, received, m_serverIp, m_port) != sf::Socket::Done)
+    if(m_udpSocket.receive(broadcastMsg, 256, received, m_serverIp, m_port) != sf::Socket::Done)
     {
         PushNotification("Data not received from server.");
     }
     else
     {
         PushNotification(broadcastMsg);
+    }
+
+
+    if(m_tcpSocket.connect(m_serverIp, 1299) != sf::Socket::Done)
+    {
+        PushNotification("TCP socket not connected.");
+    }
+    else
+    {
+        PushNotification("TCP socket connected.");
+    }
+
+    char buffer[256] = {'a'};
+    if(m_tcpSocket.send(buffer, sizeof(buffer)) != sf::Socket::Done)
+    {
+        PushNotification("TCP data not sent.");
+    }
+    else
+    {
+        PushNotification("TCP data sent.");
+    }
+
+    size_t tcpReceived;
+    if(m_tcpSocket.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
+    {
+        PushNotification("TCP data not receieved.");
+    }
+    else
+    {
+        PushNotification("TCP data received.");
     }
 
     while ((input = getch()) != 'q')
@@ -73,7 +103,7 @@ void World::Run()
         {
             if(p->GetAlive())
             {
-                PushNotifications(p->Update(input, m_socket));
+                PushNotifications(p->Update(input, m_udpSocket));
 
                 CheckCollision(p);
 
