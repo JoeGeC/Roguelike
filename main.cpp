@@ -20,7 +20,7 @@ int main(void)
     else
     {
         World world;
-        world.Run();
+        world.RunClient();
     }
 
     /*sf::UdpSocket socket;

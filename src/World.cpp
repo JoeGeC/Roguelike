@@ -18,10 +18,35 @@ World::~World()
         delete p;
 }
 
-void World::Run()
+void World::RunClient()
+{
+    sf::TcpSocket* socket = new sf::TcpSocket;
+    ClientInfo *c = new ClientInfo(socket, queue);
+    // we need to know the address and port of the server
+    c->connect();
+    std::thread([c]{c->tRecvLoop();}).detach();
+
+    while(1)
+    {
+        RunWorld();
+
+        std::string msg = "";
+
+        queue.pop(msg);
+        if (msg != "")
+        {
+            std::cout << msg << std::endl;
+        }
+        std::string omsg;
+        std::getline(std::cin, omsg);
+        c->tSend(omsg);
+    }
+}
+
+void World::RunWorld()
 {
     // Screen initialisation
-    initscr();
+    /*initscr();
     cbreak();
     curs_set(0);
     noecho();
@@ -29,58 +54,58 @@ void World::Run()
     clear();
 
     //Connect with server and obtain its IP address
-    m_serverIp = sf::IpAddress::Broadcast;
-    char broadcastMsg[] = "Broadcast Message";
-
-    if (m_udpSocket.send(broadcastMsg, 256, m_serverIp, m_port) != sf::Socket::Done)
-    {
-        PushNotification("Data not sent to server.");
-    }
-    else
-    {
-        PushNotification("Data sent to server.");
-    }
-
-    size_t received;
-
-    if(m_udpSocket.receive(broadcastMsg, 256, received, m_serverIp, m_port) != sf::Socket::Done)
-    {
-        PushNotification("Data not received from server.");
-    }
-    else
-    {
-        PushNotification(broadcastMsg);
-    }
-
-
-    if(m_tcpSocket.connect(m_serverIp, 1299) != sf::Socket::Done)
-    {
-        PushNotification("TCP socket not connected.");
-    }
-    else
-    {
-        PushNotification("TCP socket connected.");
-    }
-
-    char buffer[256] = {'a'};
-    if(m_tcpSocket.send(buffer, sizeof(buffer)) != sf::Socket::Done)
-    {
-        PushNotification("TCP data not sent.");
-    }
-    else
-    {
-        PushNotification("TCP data sent.");
-    }
-
-    size_t tcpReceived;
-    if(m_tcpSocket.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
-    {
-        PushNotification("TCP data not receieved.");
-    }
-    else
-    {
-        PushNotification("TCP data received.");
-    }
+//    m_serverIp = sf::IpAddress::Broadcast;
+//    char broadcastMsg[] = "Broadcast Message";
+//
+//    if (m_udpSocket.send(broadcastMsg, 256, m_serverIp, m_port) != sf::Socket::Done)
+//    {
+//        PushNotification("Data not sent to server.");
+//    }
+//    else
+//    {
+//        PushNotification("Data sent to server.");
+//    }
+//
+//    size_t received;
+//
+//    if(m_udpSocket.receive(broadcastMsg, 256, received, m_serverIp, m_port) != sf::Socket::Done)
+//    {
+//        PushNotification("Data not received from server.");
+//    }
+//    else
+//    {
+//        PushNotification(broadcastMsg);
+//    }
+//
+//
+//    if(m_tcpSocket.connect(m_serverIp, 1299) != sf::Socket::Done)
+//    {
+//        PushNotification("TCP socket not connected.");
+//    }
+//    else
+//    {
+//        PushNotification("TCP socket connected.");
+//    }
+//
+//    char buffer[256] = {'a'};
+//    if(m_tcpSocket.send(buffer, sizeof(buffer)) != sf::Socket::Done)
+//    {
+//        PushNotification("TCP data not sent.");
+//    }
+//    else
+//    {
+//        PushNotification("TCP data sent.");
+//    }
+//
+//    size_t tcpReceived;
+//    if(m_tcpSocket.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
+//    {
+//        PushNotification("TCP data not receieved.");
+//    }
+//    else
+//    {
+//        PushNotification("TCP data received.");
+//    }
 
     while ((input = getch()) != 'q')
     {
@@ -194,5 +219,5 @@ void World::PushNotifications(std::deque<string> notifications)
     while (m_notifications.size() > 20)
     {
         m_notifications.pop_back();
-    }
+}*/
 }

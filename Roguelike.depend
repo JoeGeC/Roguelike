@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1552426377 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/main.cpp
+1554806187 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/main.cpp
 	<ncurses/curses.h>
 	<iostream>
 	"Server.h"
@@ -21,7 +21,7 @@
 1548058636 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ncurses/unctrl.h
 	<ncurses/curses.h>
 
-1553530819 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/World.h
+1554806289 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/World.h
 	<ncurses/curses.h>
 	"LocalPlayer.h"
 	"Map.h"
@@ -30,6 +30,9 @@
 	<vector>
 	<deque>
 	<SFML/Network.hpp>
+	"Queue.h"
+	"ClientInfo.h"
+	<thread>
 
 1551108466 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Player.h
 	"Vector2.h"
@@ -87,7 +90,7 @@
 	<stdint.h>
 	<stdint.h>
 
-1553531252 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/World.cpp
+1554806411 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/World.cpp
 	"World.h"
 	<iostream>
 
@@ -273,9 +276,12 @@
 1551108466 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/MultiPlayer.h
 	<Player.h>
 
-1552426476 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Server.h
+1554805910 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Server.h
 	<iostream>
 	<SFML/Network.hpp>
+	"ClientInfo.h"
+	<thread>
+	<list>
 
 1552321827 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Client.h
 	<World.h>
@@ -283,6 +289,21 @@
 1552323387 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Client.cpp
 	"Client.h"
 
-1553531034 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Server.cpp
+1554806117 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/Server.cpp
 	"Server.h"
+
+1554800423 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/ClientInfo.h
+	<SFML/Network.hpp>
+	"Queue.h"
+
+1553533569 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/include/Queue.h
+	<queue>
+	<mutex>
+	<condition_variable>
+
+1554800726 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/Roguelike/src/ClientInfo.cpp
+	"ClientInfo.h"
+	<iostream>
+	<cstring>
+	<SFML/Network.hpp>
 

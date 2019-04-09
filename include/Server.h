@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <SFML/Network.hpp>
+#include "ClientInfo.h"
+#include <thread>
+#include <list>
 
 
 class Server
@@ -14,6 +17,10 @@ class Server
     protected:
 
     private:
+        void Accepter();
+        Queue<std::string> queue;
+        std::list<sf::TcpSocket*> sockets;
+        std::mutex m;
 };
 
 #endif // SERVER_H

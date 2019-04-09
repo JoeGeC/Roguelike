@@ -5,78 +5,52 @@ Server::Server()
     //ctor
 }
 
-void Server::Run()
+void Server::Accepter()
 {
-    sf::UdpSocket socket;
-    sf::IpAddress sender;
-    unsigned short port = 13000;
-    char data[256];
-    unsigned short sender_port;
-
-    // bind the socket to a port - only on a server
-    if (socket.bind(port) != sf::Socket::Done)
-    {
-        std::cout << "Socket not bound." << std::endl;
-    }
-    else
-    {
-        std::cout << "Socket bound to " << port << std::endl;
-    }
-
-//    while (1)
-//    {
-//        std::cout << "Waiting to receive data." << std::endl;
-//
-//        std::size_t received;
-//
-//        if (socket.receive(data, 256, received, sender, sender_port) != sf::Socket::Done)
-//        {
-//            std::cout << "Data not received." << std::endl;
-//        }
-//        else
-//        {
-//            std::cout << data << std::endl;
-//        }
-//        // Echo back the data.
-//        if (socket.send(data, 256, sender, sender_port) != sf::Socket::Done)
-//        {
-//            std::cout << "Data not sent." << std::endl;
-//        }
-//    }
-
     sf::TcpListener listener;
-    unsigned short tcpPort = 1299;
-
-    if(listener.listen(tcpPort) != sf::Socket::Done)
+    sf::Socket::Status status = listener.listen(4302);
+    if (status != sf::Socket::Done)
     {
-        std::cout << "Failed to attach to the port." << std::endl;
+        std::cerr << "Listen: " << status << std::endl;
+        return;
     }
 
-    sf::TcpSocket client;
-    if (listener.accept(client) == sf::Socket::Done)
+    while (1)
     {
-        std::cout << "Client connected." << std::endl;
-
-    }
-
-    size_t tcpReceived;
-    char buffer[256];
-    if(client.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
-    {
-        std::cout << "TCP data not received." << std::endl;
-    }
-    else
-    {
-        std::cout << "TCP data received: " << buffer << std::endl;
-    }
-
-
-    if(client.send(buffer, sizeof(buffer)) != sf::Socket::Done)
-    {
-        std::cout << "TCP data not sent." << std::endl;
-    }
-    else
-    {
-        std::cout << "TCP data sent." << std::endl;
+        sf::TcpSocket *socket = new sf::TcpSocket;
+        status = listener.accept(*socket);
+        { // New!
+            std::unique_lock<std::mutex> l(m);
+            sockets.push_back(socket);
+        }
+        if (status != sf::Socket::Done)
+        {
+            std::cerr << "Accept: " << status << std::endl;
+            return;
+        }
+        ClientInfo *c = new ClientInfo(socket, queue);
+        std::thread([c]{c->tRecvLoop();}).detach();
     }
 }
+
+void Server::Run()
+{
+    std::thread(&Server::Accepter, this).detach();
+
+    while(1)
+    {
+        std::string s = queue.pop(); // Blocking!
+        std::cout << "Main thread: '" << s << "' \n";
+        {
+            std::unique_lock<std::mutex> l(m);
+            for (auto socket : sockets) {
+                sf::Socket::Status status = socket->send(s.c_str(), s.size());
+                if (status != sf::Socket::Done) {
+                    std::cout << "Sending failed: " << status << std::endl;
+                }
+            }
+        }
+    }
+}
+
+

@@ -9,13 +9,16 @@
 #include <vector>
 #include <deque>
 #include <SFML/Network.hpp>
+#include "Queue.h"
+#include "ClientInfo.h"
+#include <thread>
 
 class World
 {
 public:
     World();
     ~World();
-    void Run();
+    void RunClient();
 
 protected:
     void DisplayStats();
@@ -36,6 +39,10 @@ protected:
     sf::TcpSocket m_tcpSocket;
     sf::IpAddress m_serverIp;
     unsigned short m_port { 13000 };
+    Queue<std::string> queue;
+
+private:
+    void RunWorld();
 };
 
 #endif //WORLD_H
