@@ -26,7 +26,7 @@ bool ClientInfo::connect()
     }
     else
     {
-        std::cout << "tConnected" << std::endl;
+        //std::cout << "tConnected" << std::endl;
         return true;
     }
 }
@@ -42,7 +42,7 @@ bool ClientInfo::tSend(std::string msg)
     }
     else
     {
-        std::cout << "tSent: " << msg << std::endl;
+        //std::cout << "tSent: " << msg << std::endl;
         return true;
     }
 }
@@ -62,7 +62,7 @@ bool ClientInfo::tRecvLoop()
             std::cerr << "Receive: " << status << std::endl;
             return false;
         }
-        std::cout << "Received: " << buffer << std::endl;
+        //std::cout << "Received: " << buffer << std::endl;
         q.push(std::string(buffer));
     }
 }
@@ -78,7 +78,7 @@ bool ClientInfo::uSend(std::string msg)
     }
     else
     {
-        std::cout << "uSent: " << msg << std::endl;
+        //std::cout << "uSent: " << msg << std::endl;
         return true;
     }
 }

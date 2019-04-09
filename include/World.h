@@ -3,6 +3,7 @@
 
 #include <ncurses/curses.h>
 #include "LocalPlayer.h"
+#include "MultiPlayer.h"
 #include "Map.h"
 #include "Vector2.h"
 #include "Enemy.h"
@@ -40,6 +41,8 @@ protected:
     sf::IpAddress m_serverIp;
     unsigned short m_port { 13000 };
     Queue<std::string> queue;
+    std::string omsg;
+    std::string rmsg;
 
 private:
     void RunWorld();

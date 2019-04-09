@@ -5,6 +5,8 @@ World::World()
 {
     m_player = new LocalPlayer(Vector2(20, 50), "Joe");
     m_entityVector.push_back(m_player);
+    MultiPlayer *m_player2 = new MultiPlayer(Vector2(10, 50), "Bob");
+    m_entityVector.push_back(m_player2);
 
     Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
     m_entityVector.push_back(enemy);
@@ -24,7 +26,7 @@ void World::RunClient()
     ClientInfo *c = new ClientInfo(socket, queue);
     // we need to know the address and port of the server
     c->connect();
-    std::thread([c]{c->tRecvLoop();}).detach();
+    std::thread([c] {c->tRecvLoop();}).detach();
 
     while(1)
     {
@@ -35,10 +37,10 @@ void World::RunClient()
         queue.pop(msg);
         if (msg != "")
         {
-            std::cout << msg << std::endl;
+            PushNotification(msg);
+            rmsg = msg;
         }
-        std::string omsg;
-        std::getline(std::cin, omsg);
+
         c->tSend(omsg);
     }
 }
@@ -46,12 +48,10 @@ void World::RunClient()
 void World::RunWorld()
 {
     // Screen initialisation
-    /*initscr();
+    initscr();
     cbreak();
     curs_set(0);
     noecho();
-
-    clear();
 
     //Connect with server and obtain its IP address
 //    m_serverIp = sf::IpAddress::Broadcast;
@@ -107,7 +107,9 @@ void World::RunWorld()
 //        PushNotification("TCP data received.");
 //    }
 
-    while ((input = getch()) != 'q')
+    //while ((input = getch()) != 'q')
+    //{
+    if((input = getch()))
     {
         clear();
 
@@ -128,7 +130,7 @@ void World::RunWorld()
         {
             if(p->GetAlive())
             {
-                PushNotifications(p->Update(input, m_udpSocket));
+                PushNotifications(p->Update(input, rmsg[0], m_udpSocket));
 
                 CheckCollision(p);
 
@@ -148,17 +150,21 @@ void World::RunWorld()
 
         if (m_gameOver == true)
         {
-            break;
+            //endgame
         }
 
         PrintNotifications();
-    }
+    //}
 
-    do
-    {
-        std::string gameOverString = "GAME OVER!";
-        mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
-    } while ((input = getch()) != 'q');
+//    do
+//    {
+//        std::string gameOverString = "GAME OVER!";
+//        mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
+//    }
+//    while ((input = getch()) != 'q');
+
+    omsg = input;
+    }
 }
 
 bool World::CheckCollision(Entity* p)
@@ -166,10 +172,10 @@ bool World::CheckCollision(Entity* p)
     for (auto i : m_entityVector)
     {
         if (i->GetAlive() &&
-        ((p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y)
-        || (p->GetPos().x == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
-        || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
-        || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)))
+                ((p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y == i->GetPos().y)
+                 || (p->GetPos().x == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
+                 || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x - 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)
+                 || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y - 1 == i->GetPos().y) || (p->GetPos().x + 1 == i->GetPos().x && p->GetPos().y + 1 == i->GetPos().y)))
         {
             //attack automatically and send required notifications to list
             std::deque<string> notifications = p->Attack(i, m_map.GetMapSize());
@@ -219,5 +225,5 @@ void World::PushNotifications(std::deque<string> notifications)
     while (m_notifications.size() > 20)
     {
         m_notifications.pop_back();
-}*/
+    }
 }

@@ -19,7 +19,7 @@ class Entity
 public:
     Entity(Vector2 pos, std::string name);
     virtual ~Entity();
-    virtual std::deque<string> Update(char input, sf::UdpSocket &socket) = 0;
+    virtual std::deque<string> Update(char input, char rmsg, sf::UdpSocket &socket) = 0;
     virtual std::deque<string> Attack(Entity* target, Vector2 mapSize) = 0;
     virtual EType GetType() const = 0;
     virtual std::deque<string> GainExperience(int exp) = 0;

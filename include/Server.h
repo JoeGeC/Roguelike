@@ -12,6 +12,7 @@ class Server
 {
     public:
         Server();
+        ~Server();
         void Run();
 
     protected:
@@ -21,6 +22,7 @@ class Server
         Queue<std::string> queue;
         std::list<sf::TcpSocket*> sockets;
         std::mutex m;
+        sf::TcpListener listener;
 };
 
 #endif // SERVER_H

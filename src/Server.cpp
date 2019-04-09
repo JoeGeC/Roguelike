@@ -5,9 +5,13 @@ Server::Server()
     //ctor
 }
 
+Server::~Server()
+{
+    listener.close();
+}
+
 void Server::Accepter()
 {
-    sf::TcpListener listener;
     sf::Socket::Status status = listener.listen(4302);
     if (status != sf::Socket::Done)
     {

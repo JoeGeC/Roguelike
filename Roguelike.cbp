@@ -53,16 +53,19 @@
 			<Add library="sfml-system" />
 			<Add directory="/usr/local/SFML-2.2/lib" />
 		</Linker>
+		<Unit filename="include/ClientInfo.h" />
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Entity.h" />
 		<Unit filename="include/LocalPlayer.h" />
 		<Unit filename="include/Map.h" />
 		<Unit filename="include/MultiPlayer.h" />
 		<Unit filename="include/Player.h" />
+		<Unit filename="include/Queue.h" />
 		<Unit filename="include/Server.h" />
 		<Unit filename="include/Vector2.h" />
 		<Unit filename="include/World.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/ClientInfo.cpp" />
 		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/Entity.cpp" />
 		<Unit filename="src/LocalPlayer.cpp" />
