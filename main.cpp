@@ -19,6 +19,12 @@ int main(void)
     }
     else
     {
+        // Screen initialisation
+        initscr();
+        cbreak();
+        curs_set(0);
+        noecho();
+
         World world;
         world.RunClient();
     }

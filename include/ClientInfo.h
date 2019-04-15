@@ -23,25 +23,27 @@ class ClientInfo
     public:
         unsigned short id;
         std::string username;
-        ClientInfo(sf::TcpSocket *s, Queue<std::string> &q);
+        ClientInfo(Queue<std::string> &q);
         void setUdp(sf::UdpSocket *s, sf::IpAddress a, unsigned short p);
         bool connect(); //TCP
         bool tSend(std::string msg);
         bool tRecv(std::string &s); // optional
         bool tRecvLoop(); // thread
         bool uSend(std::string msg);
-        bool uRecv(std::string &s); // optional
+        bool uRecv(); // optional
         bool uRecvLoop(); //Runs in a thread
         void push(std::string &s); //Enqueues
         std::string pop(); //Dequeues
 
+        sf::TcpSocket* GetTSocket() { return tSocket; }
+
     protected:
 
     private:
-        sf::TcpSocket *tSocket; //Could use smart pointers
+        sf::IpAddress address; //For TCP connect and UDP send
         sf::UdpSocket *uSocket;
-        sf::IpAddress address = "152.105.67.102"; //For TCP connect and UDP send
-        unsigned short uPort; //For UDP send
+        unsigned short uPort = 4303; //For UDP send
+        sf::TcpSocket *tSocket; //Could use smart pointers
         unsigned short tPort = 4302; //For TCP connect
         Queue<std::string> &q; //Message to be defined
 };

@@ -37,7 +37,6 @@ protected:
     char input { ' ' };
 
     sf::UdpSocket m_udpSocket;
-    sf::TcpSocket m_tcpSocket;
     sf::IpAddress m_serverIp;
     unsigned short m_port { 13000 };
     Queue<std::string> queue;

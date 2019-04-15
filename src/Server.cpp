@@ -21,19 +21,22 @@ void Server::Accepter()
 
     while (1)
     {
-        sf::TcpSocket *socket = new sf::TcpSocket;
-        status = listener.accept(*socket);
+        ClientInfo *client = new ClientInfo(queue);
+        status = listener.accept(*client->GetTSocket());
         { // New!
             std::unique_lock<std::mutex> l(m);
-            sockets.push_back(socket);
+            clients.push_back(client);
         }
         if (status != sf::Socket::Done)
         {
             std::cerr << "Accept: " << status << std::endl;
             return;
         }
-        ClientInfo *c = new ClientInfo(socket, queue);
-        std::thread([c]{c->tRecvLoop();}).detach();
+        else
+        {
+            delete client;
+        }
+        std::thread([client]{client->tRecvLoop();}).detach();
     }
 }
 
@@ -47,8 +50,9 @@ void Server::Run()
         std::cout << "Main thread: '" << s << "' \n";
         {
             std::unique_lock<std::mutex> l(m);
-            for (auto socket : sockets) {
-                sf::Socket::Status status = socket->send(s.c_str(), s.size());
+            for (auto client : clients)
+            {
+                sf::Socket::Status status = client->GetTSocket()->send(s.c_str(), s.size());
                 if (status != sf::Socket::Done) {
                     std::cout << "Sending failed: " << status << std::endl;
                 }

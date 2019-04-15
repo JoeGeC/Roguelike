@@ -20,7 +20,8 @@ class Server
     private:
         void Accepter();
         Queue<std::string> queue;
-        std::list<sf::TcpSocket*> sockets;
+        //std::list<sf::TcpSocket*> sockets;
+        std::list<ClientInfo*> clients;
         std::mutex m;
         sf::TcpListener listener;
 };

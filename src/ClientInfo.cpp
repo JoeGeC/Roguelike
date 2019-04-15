@@ -3,9 +3,10 @@
 #include <cstring>
 #include <SFML/Network.hpp>
 
-ClientInfo::ClientInfo(sf::TcpSocket *s_, Queue<std::string> &q_) : tSocket(s_), q(q_)
+ClientInfo::ClientInfo(Queue<std::string> &q_) : q(q_)
 {
     //ctor
+    tSocket = new sf::TcpSocket;
 }
 
 void ClientInfo::setUdp(sf::UdpSocket* s, sf::IpAddress a, unsigned short p)
@@ -52,24 +53,27 @@ bool ClientInfo::tRecvLoop()
     char buffer[256];
     while(1)
     {
-        std::memset(buffer, 0, 256);
-        std::size_t received;
-        sf::Socket::Status status = tSocket->receive(buffer, 256, received);
-
-        if (status != sf::Socket::Done)
+        if(tSocket != nullptr)
         {
-            perror("Receive");
-            std::cerr << "Receive: " << status << std::endl;
-            return false;
+            std::memset(buffer, 0, 256);
+            std::size_t received;
+            sf::Socket::Status status = tSocket->receive(buffer, 256, received);
+
+            if (status != sf::Socket::Done)
+            {
+                perror("Receive");
+                std::cerr << "Receive: " << status << std::endl;
+                return false;
+            }
+            //std::cout << "Received: " << buffer << std::endl;
+            q.push(std::string(buffer));
         }
-        //std::cout << "Received: " << buffer << std::endl;
-        q.push(std::string(buffer));
     }
 }
 
 bool ClientInfo::uSend(std::string msg)
 {
-    sf::Socket::Status status = uSocket->send(msg.c_str(), msg.length(), address, uPort);
+    sf::Socket::Status status = uSocket->send(msg.c_str(), msg.size(), address, uPort);
     if (status != sf::Socket::Done)
     {
         perror("uSend");
@@ -79,6 +83,23 @@ bool ClientInfo::uSend(std::string msg)
     else
     {
         //std::cout << "uSent: " << msg << std::endl;
+        return true;
+    }
+}
+
+bool ClientInfo::uRecv()
+{
+    size_t received;
+    char buffer[256];
+    sf::Socket::Status status = uSocket->receive(buffer, 256, received, address, uPort);
+    if(status != sf::Socket::Done)
+    {
+        perror("uRecv");
+        std::cerr << "uRecv: " << status << std::endl;
+        return false;
+    }
+    else
+    {
         return true;
     }
 }

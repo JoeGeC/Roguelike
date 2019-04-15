@@ -5,13 +5,13 @@ World::World()
 {
     m_player = new LocalPlayer(Vector2(20, 50), "Joe");
     m_entityVector.push_back(m_player);
-    MultiPlayer *m_player2 = new MultiPlayer(Vector2(10, 50), "Bob");
-    m_entityVector.push_back(m_player2);
+    MultiPlayer *player2 = new MultiPlayer(Vector2(10, 50), "Bob");
+    m_entityVector.push_back(player2);
 
-    Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy");
+    Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy1");
     m_entityVector.push_back(enemy);
-    Enemy *enemy1 = new Enemy(Vector2(25, 40), "Enemy");
-    m_entityVector.push_back(enemy);
+    Enemy *enemy1 = new Enemy(Vector2(25, 40), "Enemy2");
+    m_entityVector.push_back(enemy1);
 }
 
 World::~World()
@@ -22,8 +22,12 @@ World::~World()
 
 void World::RunClient()
 {
-    sf::TcpSocket* socket = new sf::TcpSocket;
-    ClientInfo *c = new ClientInfo(socket, queue);
+    ClientInfo *c = new ClientInfo(queue);
+//    c->address = sf::IpAddress::Broadcast;
+//    char broadcastMessage[] = "Broadcast";
+//    c->uSend(broadcastMessage);
+//    c->uRecv();
+
     // we need to know the address and port of the server
     c->connect();
     std::thread([c] {c->tRecvLoop();}).detach();
@@ -40,6 +44,10 @@ void World::RunClient()
             PushNotification(msg);
             rmsg = msg;
         }
+        else
+        {
+            rmsg = "";
+        }
 
         c->tSend(omsg);
     }
@@ -47,13 +55,7 @@ void World::RunClient()
 
 void World::RunWorld()
 {
-    // Screen initialisation
-    initscr();
-    cbreak();
-    curs_set(0);
-    noecho();
-
-    //Connect with server and obtain its IP address
+     //Connect with server and obtain its IP address
 //    m_serverIp = sf::IpAddress::Broadcast;
 //    char broadcastMsg[] = "Broadcast Message";
 //
