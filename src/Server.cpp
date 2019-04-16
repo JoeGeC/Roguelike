@@ -12,7 +12,7 @@ Server::~Server()
 
 void Server::Accepter()
 {
-    sf::Socket::Status status = listener.listen(4302);
+    sf::Socket::Status status = listener.listen(4301);
     if (status != sf::Socket::Done)
     {
         std::cerr << "Listen: " << status << std::endl;
@@ -25,16 +25,14 @@ void Server::Accepter()
         status = listener.accept(*client->GetTSocket());
         { // New!
             std::unique_lock<std::mutex> l(m);
+            client->id = clients.size();
             clients.push_back(client);
         }
         if (status != sf::Socket::Done)
         {
             std::cerr << "Accept: " << status << std::endl;
-            return;
-        }
-        else
-        {
             delete client;
+            return;
         }
         std::thread([client]{client->tRecvLoop();}).detach();
     }
@@ -52,9 +50,12 @@ void Server::Run()
             std::unique_lock<std::mutex> l(m);
             for (auto client : clients)
             {
-                sf::Socket::Status status = client->GetTSocket()->send(s.c_str(), s.size());
-                if (status != sf::Socket::Done) {
-                    std::cout << "Sending failed: " << status << std::endl;
+                if(client->id != (unsigned short)s[1] - 48)
+                {
+                    sf::Socket::Status status = client->GetTSocket()->send(s.c_str(), s.size());
+                    if (status != sf::Socket::Done) {
+                        std::cout << "Sending failed: " << status << std::endl;
+                    }
                 }
             }
         }

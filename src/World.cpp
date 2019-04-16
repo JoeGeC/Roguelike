@@ -23,10 +23,10 @@ World::~World()
 void World::RunClient()
 {
     ClientInfo *c = new ClientInfo(queue);
-//    c->address = sf::IpAddress::Broadcast;
-//    char broadcastMessage[] = "Broadcast";
-//    c->uSend(broadcastMessage);
-//    c->uRecv();
+    c->address = sf::IpAddress::Broadcast;
+    char broadcastMessage[] = "Broadcast";
+    c->uSend(broadcastMessage);
+    c->uRecv();
 
     // we need to know the address and port of the server
     c->connect();
@@ -48,66 +48,13 @@ void World::RunClient()
         {
             rmsg = "";
         }
-
+        omsg += std::to_string(c->id);
         c->tSend(omsg);
     }
 }
 
 void World::RunWorld()
 {
-     //Connect with server and obtain its IP address
-//    m_serverIp = sf::IpAddress::Broadcast;
-//    char broadcastMsg[] = "Broadcast Message";
-//
-//    if (m_udpSocket.send(broadcastMsg, 256, m_serverIp, m_port) != sf::Socket::Done)
-//    {
-//        PushNotification("Data not sent to server.");
-//    }
-//    else
-//    {
-//        PushNotification("Data sent to server.");
-//    }
-//
-//    size_t received;
-//
-//    if(m_udpSocket.receive(broadcastMsg, 256, received, m_serverIp, m_port) != sf::Socket::Done)
-//    {
-//        PushNotification("Data not received from server.");
-//    }
-//    else
-//    {
-//        PushNotification(broadcastMsg);
-//    }
-//
-//
-//    if(m_tcpSocket.connect(m_serverIp, 1299) != sf::Socket::Done)
-//    {
-//        PushNotification("TCP socket not connected.");
-//    }
-//    else
-//    {
-//        PushNotification("TCP socket connected.");
-//    }
-//
-//    char buffer[256] = {'a'};
-//    if(m_tcpSocket.send(buffer, sizeof(buffer)) != sf::Socket::Done)
-//    {
-//        PushNotification("TCP data not sent.");
-//    }
-//    else
-//    {
-//        PushNotification("TCP data sent.");
-//    }
-//
-//    size_t tcpReceived;
-//    if(m_tcpSocket.receive(buffer, 256, tcpReceived) != sf::Socket::Done)
-//    {
-//        PushNotification("TCP data not receieved.");
-//    }
-//    else
-//    {
-//        PushNotification("TCP data received.");
-//    }
 
     //while ((input = getch()) != 'q')
     //{

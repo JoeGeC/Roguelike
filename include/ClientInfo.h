@@ -34,17 +34,18 @@ class ClientInfo
         bool uRecvLoop(); //Runs in a thread
         void push(std::string &s); //Enqueues
         std::string pop(); //Dequeues
+        sf::IpAddress address; //For TCP connect and UDP send
 
         sf::TcpSocket* GetTSocket() { return tSocket; }
 
     protected:
 
     private:
-        sf::IpAddress address; //For TCP connect and UDP send
+
         sf::UdpSocket *uSocket;
         unsigned short uPort = 4303; //For UDP send
         sf::TcpSocket *tSocket; //Could use smart pointers
-        unsigned short tPort = 4302; //For TCP connect
+        unsigned short tPort = 4301; //For TCP connect
         Queue<std::string> &q; //Message to be defined
 };
 
