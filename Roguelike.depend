@@ -308,3 +308,120 @@
 	<cstring>
 	<SFML/Network.hpp>
 
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/main.cpp
+	<ncurses/curses.h>
+	<iostream>
+	"Server.h"
+	"World.h"
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/ncurses/curses.h
+	<ncurses/ncurses_dll.h>
+	<stdint.h>
+	<stdio.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdbool.h>
+	<libutf8.h>
+	<wchar.h>
+	<ncurses/unctrl.h>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/ncurses/ncurses_dll.h
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/ncurses/unctrl.h
+	<ncurses/curses.h>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Server.h
+	<iostream>
+	<SFML/Network.hpp>
+	"ClientInfo.h"
+	<thread>
+	<list>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/ClientInfo.h
+	<SFML/Network.hpp>
+	"Queue.h"
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Queue.h
+	<queue>
+	<mutex>
+	<condition_variable>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/World.h
+	<ncurses/curses.h>
+	"LocalPlayer.h"
+	"MultiPlayer.h"
+	"Map.h"
+	"Vector2.h"
+	"Enemy.h"
+	<vector>
+	<deque>
+	<SFML/Network.hpp>
+	"Queue.h"
+	"ClientInfo.h"
+	<thread>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/LocalPlayer.h
+	<Player.h>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Player.h
+	"Vector2.h"
+	"Entity.h"
+	"Map.h"
+	<deque>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Vector2.h
+	<ostream>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Entity.h
+	"Vector2.h"
+	"Map.h"
+	<deque>
+	<SFML/Network.hpp>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Map.h
+	"Entity.h"
+	"Vector2.h"
+	<vector>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/MultiPlayer.h
+	<Player.h>
+
+1555537987 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/include/Enemy.h
+	"Entity.h"
+	<deque>
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/ClientInfo.cpp
+	"ClientInfo.h"
+	<iostream>
+	<cstring>
+	<SFML/Network.hpp>
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/Enemy.cpp
+	"Enemy.h"
+	<ncurses/curses.h>
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/Entity.cpp
+	<ncurses/curses.h>
+	"Entity.h"
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/LocalPlayer.cpp
+	"LocalPlayer.h"
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/Map.cpp
+	"Map.h"
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/MultiPlayer.cpp
+	"MultiPlayer.h"
+
+1555537987 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/Player.cpp
+	"Player.h"
+	"Map.h"
+	<ncurses/curses.h>
+
+1555538162 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/Server.cpp
+	"Server.h"
+
+1555538162 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/RoguelikeCopy/Roguelike/src/World.cpp
+	"World.h"
+	<iostream>
+

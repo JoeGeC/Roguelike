@@ -27,6 +27,7 @@ void Server::Accepter()
             std::unique_lock<std::mutex> l(m);
             client->id = clients.size();
             clients.push_back(client);
+            client->tSend(std::to_string(client->id));
         }
         if (status != sf::Socket::Done)
         {

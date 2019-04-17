@@ -32,6 +32,13 @@ void World::RunClient()
     c->connect();
     std::thread([c] {c->tRecvLoop();}).detach();
 
+    //Gets id of client from server and sets it clientside
+    string id = "";
+    id = queue.pop();
+    PushNotification(id);
+    c->id = std::atoi(id.c_str());
+
+
     while(1)
     {
         RunWorld();
