@@ -12,7 +12,7 @@ Server::~Server()
 
 void Server::Accepter()
 {
-    sf::Socket::Status status = listener.listen(4301);
+    sf::Socket::Status status = listener.listen(4300);
     if (status != sf::Socket::Done)
     {
         std::cerr << "Listen: " << status << std::endl;
@@ -28,6 +28,16 @@ void Server::Accepter()
             client->id = clients.size();
             clients.push_back(client);
             client->tSend(std::to_string(client->id));
+            for(auto c : clients)
+            {
+                if(c->id != client->id)
+                {
+                    std::string newClient = "n" + std::to_string(client->id);
+                    c->tSend(newClient);
+                    std::string existingClient = "n" + std::to_string(c->id);
+                    client->tSend(existingClient);
+                }
+            }
         }
         if (status != sf::Socket::Done)
         {
@@ -51,7 +61,7 @@ void Server::Run()
             std::unique_lock<std::mutex> l(m);
             for (auto client : clients)
             {
-                if(client->id != (unsigned short)s[1] - 48)
+                if(client->id != (unsigned short)s[0] - 48)
                 {
                     sf::Socket::Status status = client->GetTSocket()->send(s.c_str(), s.size());
                     if (status != sf::Socket::Done) {

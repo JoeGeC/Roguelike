@@ -3,14 +3,12 @@
 
 World::World()
 {
-    m_player = new LocalPlayer(Vector2(20, 50), "Joe");
+    m_player = new LocalPlayer(Vector2(9, 25), "Joe");
     m_entityVector.push_back(m_player);
-    MultiPlayer *player2 = new MultiPlayer(Vector2(10, 50), "Bob");
-    m_entityVector.push_back(player2);
 
     Enemy *enemy = new Enemy(Vector2(20, 40), "Enemy1");
     m_entityVector.push_back(enemy);
-    Enemy *enemy1 = new Enemy(Vector2(25, 40), "Enemy2");
+    Enemy *enemy1 = new Enemy(Vector2(25, 50), "Enemy2");
     m_entityVector.push_back(enemy1);
 }
 
@@ -38,6 +36,21 @@ void World::RunClient()
     PushNotification(id);
     c->id = std::atoi(id.c_str());
 
+    switch(c->id)
+    {
+        case 0:
+            m_player->SetPos(Vector2(9, 25));
+            break;
+        case 1:
+            m_player->SetPos(Vector2(9, 75));
+            break;
+        case 2:
+            m_player->SetPos(Vector2(31, 25));
+            break;
+        case 3:
+            m_player->SetPos(Vector2(31, 75));
+            break;
+    }
 
     while(1)
     {
@@ -55,17 +68,53 @@ void World::RunClient()
         {
             rmsg = "";
         }
-        omsg += std::to_string(c->id);
+
+        omsg = std::to_string(c->id);
+        omsg += m_input;
         c->tSend(omsg);
     }
 }
 
 void World::RunWorld()
 {
+    if(rmsg[0] == 'n')
+    {
+        switch(rmsg[1])
+        {
+            case '0' :
+            {
+                MultiPlayer *player1 = new MultiPlayer(Vector2(9, 25), "Joe");
+                m_entityVector.push_back(player1);
+                break;
+            }
+            case '1' :
+            {
+                MultiPlayer *player2 = new MultiPlayer(Vector2(9, 75), "Bob");
+                m_entityVector.push_back(player2);
+                break;
+            }
+            case '2' :
+            {
+                MultiPlayer *player3 = new MultiPlayer(Vector2(31, 25), "Sarah");
+                m_entityVector.push_back(player3);
+                break;
+            }
+            case '3' :
+            {
+                MultiPlayer *player4 = new MultiPlayer(Vector2(31, 75), "Paula");
+                m_entityVector.push_back(player4);
+                break;
+            }
+        }
+    }
+    else if(rmsg[0] == '0')
+    {
+        //Give players IDs and update based on rmsg
+    }
 
     //while ((input = getch()) != 'q')
     //{
-    if((input = getch()))
+    if((m_input = getch()))
     {
         clear();
 
@@ -86,7 +135,7 @@ void World::RunWorld()
         {
             if(p->GetAlive())
             {
-                PushNotifications(p->Update(input, rmsg[0], m_udpSocket));
+                PushNotifications(p->Update(m_input));
 
                 CheckCollision(p);
 
@@ -118,8 +167,6 @@ void World::RunWorld()
 //        mvprintw(m_map.GetMapSize().x / 2, m_map.GetMapSize().y / 2, "%s", gameOverString.c_str());
 //    }
 //    while ((input = getch()) != 'q');
-
-    omsg = input;
     }
 }
 

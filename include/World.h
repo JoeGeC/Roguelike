@@ -34,7 +34,7 @@ protected:
     Map m_map;
 
     bool m_gameOver { false };
-    char input { ' ' };
+    char m_input { ' ' };
 
     sf::UdpSocket m_udpSocket;
     sf::IpAddress m_serverIp;

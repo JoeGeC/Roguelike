@@ -8,7 +8,7 @@ class MultiPlayer : public Player
 {
     public:
         MultiPlayer(Vector2 pos, std::string name);
-        std::deque<string> Update(char input, char rmsg, sf::UdpSocket &socket) override final;
+        std::deque<string> Update(char input) override final;
 
     protected:
 
