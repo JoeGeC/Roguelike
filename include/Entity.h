@@ -28,18 +28,21 @@ public:
     bool CheckAlive();
     std::deque<string> Die(Entity* killer);
 
+    int GetId(){ return m_id; }
     Vector2 GetPos(){ return m_pos; }
     int GetHealth(){ return m_health; }
     bool GetAlive(){ return m_alive; }
     string GetName(){ return m_name; }
 
+    void SetId(int id) { m_id = id; }
     void SetHealth(int addHealth) { m_health += addHealth; }
     void SetNextMove(int direction) { m_move = direction; }
     void SetPos(Vector2 pos) { m_pos = pos; }
 
 protected:
     Vector2 m_pos;
-    int m_move;
+    int m_id { 9 };
+    int m_move { 1 };
     int m_health { 100 };
     bool m_alive { true };
     int m_defeatExp { 10 };

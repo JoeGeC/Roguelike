@@ -40,8 +40,8 @@ protected:
     sf::IpAddress m_serverIp;
     unsigned short m_port { 13000 };
     Queue<std::string> queue;
-    std::string omsg;
-    std::string rmsg;
+    std::string m_omsg;
+    std::string m_rmsg;
 
 private:
     void RunWorld();

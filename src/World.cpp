@@ -35,6 +35,7 @@ void World::RunClient()
     id = queue.pop();
     PushNotification(id);
     c->id = std::atoi(id.c_str());
+    m_player->SetId(std::atoi(id.c_str()));
 
     switch(c->id)
     {
@@ -62,55 +63,70 @@ void World::RunClient()
         if (msg != "")
         {
             PushNotification(msg);
-            rmsg = msg;
+            m_rmsg = msg;
         }
         else
         {
-            rmsg = "";
+            m_rmsg = "";
         }
 
-        omsg = std::to_string(c->id);
-        omsg += m_input;
-        c->tSend(omsg);
+        m_omsg = std::to_string(c->id);
+        m_omsg += m_input;
+        c->tSend(m_omsg);
     }
 }
 
 void World::RunWorld()
 {
-    if(rmsg[0] == 'n')
+    if(m_rmsg[0] == 'n')
     {
-        switch(rmsg[1])
+        switch(m_rmsg[1])
         {
             case '0' :
             {
-                MultiPlayer *player1 = new MultiPlayer(Vector2(9, 25), "Joe");
-                m_entityVector.push_back(player1);
+                MultiPlayer *player1 = new MultiPlayer(Vector2(9, 25), "Tom");
+                player1->SetId(0);
+                m_entityVector.push_back(player1); // TODO: NOT GETTING PUSHED TO VECTOR
+                PushNotification("Player 1 joined!");
                 break;
             }
             case '1' :
             {
                 MultiPlayer *player2 = new MultiPlayer(Vector2(9, 75), "Bob");
+                player2->SetId(1);
                 m_entityVector.push_back(player2);
+                PushNotification("Player 2 joined!");
                 break;
             }
             case '2' :
             {
                 MultiPlayer *player3 = new MultiPlayer(Vector2(31, 25), "Sarah");
+                player3->SetId(2);
                 m_entityVector.push_back(player3);
+                PushNotification("Player 3 joined!");
                 break;
             }
             case '3' :
             {
                 MultiPlayer *player4 = new MultiPlayer(Vector2(31, 75), "Paula");
+                player4->SetId(3);
                 m_entityVector.push_back(player4);
+                PushNotification("Player 4 joined!");
                 break;
             }
         }
     }
-    else if(rmsg[0] == '0')
+    else if(m_rmsg != "")
     {
-        //Give players IDs and update based on rmsg
+        for(auto &player : m_entityVector)
+        {
+            if(player->GetId() == m_rmsg[0])
+            {
+                player->SetNextMove(m_rmsg[1]);
+            }
+        }
     }
+
 
     //while ((input = getch()) != 'q')
     //{
@@ -131,7 +147,7 @@ void World::RunWorld()
         DisplayStats();
 
         //Updates all entities
-        for(auto p : m_entityVector)
+        for(auto &p : m_entityVector)
         {
             if(p->GetAlive())
             {
