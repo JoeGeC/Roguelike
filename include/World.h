@@ -27,6 +27,7 @@ protected:
     void PrintNotifications();
     void PushNotification(string notification);
     void PushNotifications(std::deque<string> notifications);
+    void NextTurn();
 
     std::deque<string> m_notifications;
     std::vector<Entity*> m_entityVector;
@@ -35,6 +36,8 @@ protected:
 
     bool m_gameOver { false };
     char m_input { ' ' };
+    int m_numPlayers { 1 };
+    int m_playerTurn { 0 };
 
     sf::UdpSocket m_udpSocket;
     sf::IpAddress m_serverIp;
@@ -45,6 +48,7 @@ protected:
 
 private:
     void RunWorld();
+    void Game();
 };
 
 #endif //WORLD_H
