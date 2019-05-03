@@ -42,7 +42,7 @@ public:
 protected:
     Vector2 m_pos;
     int m_id { 9 };
-    int m_move { 1 };
+    int m_move { 5 };
     int m_health { 100 };
     bool m_alive { true };
     int m_defeatExp { 10 };
