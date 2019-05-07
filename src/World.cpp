@@ -23,6 +23,12 @@ void World::RunClient()
     ClientInfo *c = new ClientInfo(queue);
     c->address = sf::IpAddress::Broadcast;
     char broadcastMessage[] = "Broadcast";
+    sf::Socket::Status status = c->GetUSocket()->bind(c->GetUPort());
+    while (status != sf::Socket::Done)
+    {
+        status = c->GetUSocket()->bind(c->GetUPort());
+    }
+
     c->uSend(broadcastMessage);
     c->uRecv();
 
@@ -134,8 +140,8 @@ void World::RunWorld()
         {
             if(((char)player->GetId()) == m_rmsg[0] - 48)
             {
-                std::string x = 0;
-                std::string y = 0;
+                std::string x = "";
+                std::string y = "";
                 bool xBool = true;
                 for(int i = 1; i < m_rmsg.length(); i++)
                 {

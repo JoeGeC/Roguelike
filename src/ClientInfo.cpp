@@ -7,7 +7,7 @@ ClientInfo::ClientInfo(Queue<std::string> &q_) : q(q_)
 {
     //ctor
     tSocket = new sf::TcpSocket;
-    //uSocket = new sf::UdpSocket;
+    uSocket = new sf::UdpSocket;
 }
 
 void ClientInfo::setUdp(sf::UdpSocket* s, sf::IpAddress a, unsigned short p)

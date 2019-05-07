@@ -37,6 +37,8 @@ class ClientInfo
         sf::IpAddress address; //For TCP connect and UDP send
 
         sf::TcpSocket* GetTSocket() { return tSocket; }
+        sf::UdpSocket* GetUSocket() { return uSocket; }
+        unsigned short GetUPort() { return uPort; }
 
     protected:
 
