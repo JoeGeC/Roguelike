@@ -57,6 +57,10 @@ void World::RunClient()
     {
         RunWorld();
 
+        int numPlayersLeft = 2 - m_numPlayers;
+        std::string s = "Waiting for " + std::to_string(numPlayersLeft) + " players.";
+        mvprintw(0, 0, "%s", s.c_str());
+
         std::string msg = "";
 
         m_rmsg = "";
@@ -71,7 +75,9 @@ void World::RunClient()
         if(m_input != ' ')
         {
             m_omsg = std::to_string(c->id);
-            m_omsg += m_input;
+            m_omsg += std::to_string((int)m_player->GetPos().x);
+            m_omsg += ',';
+            m_omsg += std::to_string((int)m_player->GetPos().y);
             c->tSend(m_omsg);
             m_input = ' ';
         }
@@ -111,15 +117,15 @@ void World::RunWorld()
             m_numPlayers++;
             break;
         }
-        case '3' :
-        {
-            MultiPlayer *player4 = new MultiPlayer(Vector2(31, 75), "Paula");
-            player4->SetId(3);
-            m_entityVector.push_back(player4);
-            PushNotification("Player 4 joined!");
-            m_numPlayers++;
-            break;
-        }
+//        case '3' :
+//        {
+//            MultiPlayer *player4 = new MultiPlayer(Vector2(31, 75), "Paula");
+//            player4->SetId(3);
+//            m_entityVector.push_back(player4);
+//            PushNotification("Player 4 joined!");
+//            m_numPlayers++;
+//            break;
+//        }
         }
     }
     else if(m_rmsg != "")
@@ -128,31 +134,55 @@ void World::RunWorld()
         {
             if(((char)player->GetId()) == m_rmsg[0] - 48)
             {
-                player->SetNextMove(m_rmsg[1]);
+                std::string x = 0;
+                std::string y = 0;
+                bool xBool = true;
+                for(int i = 1; i < m_rmsg.length(); i++)
+                {
+                    if (m_rmsg[i] != ',')
+                    {
+                        if(xBool)
+                        {
+                            x += m_rmsg[i];
+                        }
+                        else
+                        {
+                            y += m_rmsg[i];
+                        }
+                    }
+                    else
+                    {
+                        xBool = false;
+                    }
+                }
+                player->SetPos(Vector2(std::stof(x), std::stof(y)));
             }
         }
     }
 
-    DisplayStats();
-
-    PrintNotifications();
-
-    if(m_playerTurn == m_player->GetId())
+    if(m_numPlayers == 2)
     {
-        if(m_input = getch())
+        DisplayStats();
+
+        PrintNotifications();
+
+        if(m_playerTurn == m_player->GetId())
+        {
+            if(m_input = getch())
+            {
+                Game();
+                NextTurn();
+            }
+
+        }
+        else if(m_rmsg != "" && m_rmsg[0] != 'n')
         {
             Game();
             NextTurn();
         }
 
+        DisplayStats();
     }
-    else if(m_rmsg != "" && m_rmsg[0] != 'n')
-    {
-        Game();
-        NextTurn();
-    }
-
-    DisplayStats();
 
     PrintNotifications();
 }
@@ -202,7 +232,7 @@ void World::Game()
 void World::NextTurn()
 {
     m_playerTurn++;
-    if(m_playerTurn >= m_numPlayers)
+    if(m_playerTurn > m_numPlayers)
     {
         m_playerTurn = 0;
     }

@@ -1,4 +1,3 @@
-#include <ncurses/curses.h>
 #include "Entity.h"
 
 Entity::Entity(Vector2 pos, std::string name) : m_pos(pos), m_name(name)

@@ -7,6 +7,7 @@ ClientInfo::ClientInfo(Queue<std::string> &q_) : q(q_)
 {
     //ctor
     tSocket = new sf::TcpSocket;
+    //uSocket = new sf::UdpSocket;
 }
 
 void ClientInfo::setUdp(sf::UdpSocket* s, sf::IpAddress a, unsigned short p)
@@ -82,7 +83,7 @@ bool ClientInfo::uSend(std::string msg)
     }
     else
     {
-        //std::cout << "uSent: " << msg << std::endl;
+        std::cout << "uSent: " << msg << std::endl;
         return true;
     }
 }
@@ -100,6 +101,7 @@ bool ClientInfo::uRecv()
     }
     else
     {
+        std::cout << "uRecv: " << status << std::endl;
         return true;
     }
 }

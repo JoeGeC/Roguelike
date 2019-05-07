@@ -5,6 +5,7 @@
 #include "Map.h"
 #include <deque>
 #include <SFML/Network.hpp>
+#include <ncurses/curses.h>
 
 enum class EType
 {
@@ -36,13 +37,11 @@ public:
 
     void SetId(int id) { m_id = id; }
     void SetHealth(int addHealth) { m_health += addHealth; }
-    void SetNextMove(int direction) { m_move = direction; }
     void SetPos(Vector2 pos) { m_pos = pos; }
 
 protected:
     Vector2 m_pos;
     int m_id { 9 };
-    int m_move { 5 };
     int m_health { 100 };
     bool m_alive { true };
     int m_defeatExp { 10 };

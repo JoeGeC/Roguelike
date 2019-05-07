@@ -41,11 +41,10 @@ class ClientInfo
     protected:
 
     private:
-
         sf::UdpSocket *uSocket;
         unsigned short uPort = 4303; //For UDP send
         sf::TcpSocket *tSocket; //Could use smart pointers
-        unsigned short tPort = 4301; //For TCP connect
+        unsigned short tPort = 4300; //For TCP connect
         Queue<std::string> &q; //Message to be defined
 };
 

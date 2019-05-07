@@ -9,7 +9,7 @@ std::deque<string> MultiPlayer::Update(char input)
 {
     std::deque<string> notifications;
 
-    Move(m_move, '@');
+    mvaddch(m_pos.x, m_pos.y, '@');
 
     return notifications;
 }

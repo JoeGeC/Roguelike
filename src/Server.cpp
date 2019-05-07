@@ -12,7 +12,7 @@ Server::~Server()
 
 void Server::Accepter()
 {
-    sf::Socket::Status status = listener.listen(4301);
+    sf::Socket::Status status = listener.listen(4300);
     if (status != sf::Socket::Done)
     {
         std::cerr << "Listen: " << status << std::endl;

@@ -36,7 +36,7 @@ protected:
 
     bool m_gameOver { false };
     char m_input { ' ' };
-    int m_numPlayers { 1 };
+    int m_numPlayers { 0 };
     int m_playerTurn { 0 };
 
     sf::UdpSocket m_udpSocket;
