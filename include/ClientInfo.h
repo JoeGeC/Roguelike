@@ -4,20 +4,6 @@
 #include <SFML/Network.hpp>
 #include "Queue.h"
 
-struct Message
-{
-    enum class Type
-    {
-        Disconnect,
-        Standard
-        //could add position, attack, spell, etc...
-    };
-
-    Type type = Type::Standard;
-    unsigned short senderID;
-    char payload[];
-};
-
 class ClientInfo
 {
     public:

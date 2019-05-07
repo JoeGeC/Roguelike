@@ -20,7 +20,7 @@ class Entity
 public:
     Entity(Vector2 pos, std::string name);
     virtual ~Entity();
-    virtual std::deque<string> Update(char input) = 0;
+    virtual std::deque<string> Update(char input) = 0; // gets called whenever entity takes an action
     virtual std::deque<string> Attack(Entity* target, Vector2 mapSize) = 0;
     virtual EType GetType() const = 0;
     virtual std::deque<string> GainExperience(int exp) = 0;
@@ -42,7 +42,7 @@ public:
 protected:
     Vector2 m_pos;
     int m_id { 9 };
-    int m_health { 100 };
+    int m_health { 5 };
     bool m_alive { true };
     int m_defeatExp { 10 };
     string m_name;

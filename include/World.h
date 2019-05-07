@@ -22,15 +22,15 @@ public:
     void RunClient();
 
 protected:
-    void DisplayStats();
-    bool CheckCollision(Entity* p);
-    void PrintNotifications();
-    void PushNotification(string notification);
-    void PushNotifications(std::deque<string> notifications);
-    void NextTurn();
+    void DisplayStats(); // Displays stats under map
+    bool CheckCollision(Entity* p); // Checks for collisions against all entities
+    void PrintNotifications(); // Prints notifications on side of map
+    void PushNotification(string notification); // Push one notification to be displayed
+    void PushNotifications(std::deque<string> notifications); // Push multiple notifications to be displayed
+    void NextTurn(); // Call at end of turn to go onto next
 
-    std::deque<string> m_notifications;
-    std::vector<Entity*> m_entityVector;
+    std::deque<string> m_notifications; //holds notifications to be displayed
+    std::vector<Entity*> m_entityVector; // holds all entities
     LocalPlayer *m_player;
     Map m_map;
 
@@ -39,12 +39,9 @@ protected:
     int m_numPlayers { 0 };
     int m_playerTurn { 0 };
 
-    sf::UdpSocket m_udpSocket;
-    sf::IpAddress m_serverIp;
-    unsigned short m_port { 13000 };
     Queue<std::string> queue;
-    std::string m_omsg;
-    std::string m_rmsg;
+    std::string m_omsg; //outgoing message
+    std::string m_rmsg; //received message
 
 private:
     void RunWorld();

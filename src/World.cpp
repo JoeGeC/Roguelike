@@ -31,6 +31,7 @@ void World::RunClient()
 
     c->uSend(broadcastMessage);
     c->uRecv();
+    delete c->GetUSocket(); // delete socket when done with it
 
     // we need to know the address and port of the server
     c->connect();
@@ -43,29 +44,27 @@ void World::RunClient()
     c->id = std::atoi(id.c_str());
     m_player->SetId(std::atoi(id.c_str()));
 
+    // Sets players in their starting position
     switch(c->id)
     {
     case 0:
-        m_player->SetPos(Vector2(9, 25));
+        m_player->SetPos(Vector2(5, 20));
         break;
     case 1:
-        m_player->SetPos(Vector2(9, 75));
+        m_player->SetPos(Vector2(5, 60));
         break;
     case 2:
-        m_player->SetPos(Vector2(31, 25));
+        m_player->SetPos(Vector2(25, 20));
         break;
     case 3:
-        m_player->SetPos(Vector2(31, 75));
+        m_player->SetPos(Vector2(25, 60));
         break;
     }
 
+    // Game loop
     while(1)
     {
         RunWorld();
-
-        int numPlayersLeft = 2 - m_numPlayers;
-        std::string s = "Waiting for " + std::to_string(numPlayersLeft) + " players.";
-        mvprintw(0, 0, "%s", s.c_str());
 
         std::string msg = "";
 
@@ -92,13 +91,14 @@ void World::RunClient()
 
 void World::RunWorld()
 {
+    // If a new player has connected
     if(m_rmsg[0] == 'n')
     {
         switch(m_rmsg[1])
         {
         case '0' :
         {
-            MultiPlayer *player1 = new MultiPlayer(Vector2(9, 25), "Tom");
+            MultiPlayer *player1 = new MultiPlayer(Vector2(5, 20), "Tom");
             player1->SetId(0);
             m_entityVector.push_back(player1);
             PushNotification("Player 1 joined!");
@@ -107,7 +107,7 @@ void World::RunWorld()
         }
         case '1' :
         {
-            MultiPlayer *player2 = new MultiPlayer(Vector2(9, 75), "Bob");
+            MultiPlayer *player2 = new MultiPlayer(Vector2(5, 60), "Bob");
             player2->SetId(1);
             m_entityVector.push_back(player2);
             PushNotification("Player 2 joined!");
@@ -116,7 +116,7 @@ void World::RunWorld()
         }
         case '2' :
         {
-            MultiPlayer *player3 = new MultiPlayer(Vector2(31, 25), "Sarah");
+            MultiPlayer *player3 = new MultiPlayer(Vector2(25, 60), "Sarah");
             player3->SetId(2);
             m_entityVector.push_back(player3);
             PushNotification("Player 3 joined!");
@@ -134,6 +134,7 @@ void World::RunWorld()
 //        }
         }
     }
+    // Move players according to their id
     else if(m_rmsg != "")
     {
         for(auto &player : m_entityVector)
@@ -228,10 +229,7 @@ void World::Game()
     // Displaying
     refresh();
 
-    if (m_gameOver == true)
-    {
-        //endgame
-    }
+
 }
 
 
@@ -286,7 +284,7 @@ void World::PushNotification(string notification)
 {
     m_notifications.push_front(notification);
 
-    while (m_notifications.size() > 20)
+    while (m_notifications.size() > 15)
     {
         m_notifications.pop_back();
     }
@@ -299,7 +297,7 @@ void World::PushNotifications(std::deque<string> notifications)
         m_notifications.push_front(s);
     }
 
-    while (m_notifications.size() > 20)
+    while (m_notifications.size() > 15)
     {
         m_notifications.pop_back();
     }

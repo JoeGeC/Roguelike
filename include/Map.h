@@ -16,7 +16,7 @@ public:
     Entity* GetEntityAtLoc(Vector2 pos, std::vector<Entity*> entityVector);
 
 private:
-    char m_map[40][100];
+    char m_map[30][80];
 };
 
 #endif //MAP_H
